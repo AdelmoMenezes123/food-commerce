@@ -20,6 +20,14 @@ export default function Burgers() {
       price: 14.99,
       image: 'https://i.imgur.com/B4J04AJ.jpg',
     },
+    {
+      id: 3,
+      snack: 'burger',
+      name: 'Extra Frango',
+      description: 'Um hamburguer com duas camadas de Bacon bem assada ainda com queijo e tomate.',
+      price: 15.99,
+      image: 'https://i.imgur.com/B4J04AJ.jpg',
+    },
   ]
 
   return (
