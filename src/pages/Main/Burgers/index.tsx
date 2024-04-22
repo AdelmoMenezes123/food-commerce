@@ -9,7 +9,7 @@ export default function Burgers() {
       snack: 'burger',
       name: 'Mega',
       description: 'Um hambúrguer com duas carnes bovinas, tamanho familia e bastante macio.',
-      price: 19.99,
+      price: 19.6,
       image: 'https://i.imgur.com/upjIUnG.jpg',
     },
     {
@@ -17,7 +17,7 @@ export default function Burgers() {
       snack: 'burger',
       name: 'Extra Bacon',
       description: 'Um hamburguer com duas camadas de Bacon bem assada ainda com queijo e tomate.',
-      price: 14.99,
+      price: 15,
       image: 'https://i.imgur.com/B4J04AJ.jpg',
     },
     {
@@ -25,7 +25,7 @@ export default function Burgers() {
       snack: 'burger',
       name: 'Extra Frango',
       description: 'Um hamburguer com duas camadas de Bacon bem assada ainda com queijo e tomate.',
-      price: 15.99,
+      price: 12.99,
       image: 'https://i.imgur.com/B4J04AJ.jpg',
     },
   ]

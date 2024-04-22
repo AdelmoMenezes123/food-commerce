@@ -14,6 +14,7 @@ export const Container = styled.div`
     background: ${({ theme }) => theme.colors.black};
     padding: 1.75rem 1.5rem;
     border-radius: 4px;
+    box-shadow: 2px 4px 0.5rem rgba(0, 0, 0, 0.8);
 
     h2 {
       margin-bottom: 0.75rem;
