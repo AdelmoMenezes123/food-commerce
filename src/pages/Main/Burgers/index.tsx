@@ -1,40 +1,25 @@
+import { useEffect, useState } from 'react'
 import { Head } from '../../../components/Head'
 import SnackTitle from '../../../components/SnackTitle'
 import { Snacks } from '../../../components/Snacks'
+import { getBurgers } from '../../../services/api'
 
 export default function Burgers() {
-  const data = [
-    {
-      id: 1,
-      snack: 'burger',
-      name: 'Mega',
-      description: 'Um hambúrguer com duas carnes bovinas, tamanho familia e bastante macio.',
-      price: 19.6,
-      image: 'https://i.imgur.com/upjIUnG.jpg',
-    },
-    {
-      id: 2,
-      snack: 'burger',
-      name: 'Extra Bacon',
-      description: 'Um hamburguer com duas camadas de Bacon bem assada ainda com queijo e tomate.',
-      price: 15,
-      image: 'https://i.imgur.com/B4J04AJ.jpg',
-    },
-    {
-      id: 3,
-      snack: 'burger',
-      name: 'Extra Frango',
-      description: 'Um hamburguer com duas camadas de Bacon bem assada ainda com queijo e tomate.',
-      price: 12.99,
-      image: 'https://i.imgur.com/B4J04AJ.jpg',
-    },
-  ]
+  const [burgers, setBurgers] = useState([])
+
+  useEffect(() => {
+    ;(async () => {
+      const burgerRequest = await getBurgers()
+
+      setBurgers(burgerRequest.data)
+    })()
+  }, [])
 
   return (
     <>
       <Head title='Burgers' description='Nossos melhores burgers' />
       <SnackTitle>Hambúrgueres</SnackTitle>
-      <Snacks snacks={data}></Snacks>
+      <Snacks snacks={burgers}></Snacks>
     </>
   )
 }
