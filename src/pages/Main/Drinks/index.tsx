@@ -13,7 +13,7 @@ export default function Drinks() {
 
       setDrinks(drinkRequest.data)
     })()
-  })
+  }, [])
 
   return (
     <>

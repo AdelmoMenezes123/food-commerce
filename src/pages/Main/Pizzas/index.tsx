@@ -13,7 +13,7 @@ export default function Pizzas() {
 
       setPizzas(pizzaRequest.data)
     })()
-  })
+  }, [])
   return (
     <>
       <Head title='Pizzas' description='Nossas melhores pizzas' />
