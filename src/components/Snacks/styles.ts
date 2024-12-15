@@ -16,6 +16,24 @@ export const Container = styled.div`
     border-radius: 4px;
     box-shadow: 2px 4px 0.5rem rgba(0, 0, 0, 0.8);
 
+    span {
+      position: absolute;
+      top: -0.5rem;
+      left: -0.5rem;
+
+      background: ${({ theme }) => theme.colors.red};
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-weight: 500;
+      font-size: 1.125rem;
+    }
+
     h2 {
       margin-bottom: 0.75rem;
       font-weight: 700;

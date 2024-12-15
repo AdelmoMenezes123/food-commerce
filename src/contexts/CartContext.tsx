@@ -39,6 +39,7 @@ export function CartProvider({ children }: CartProviderProps) {
       (item) => item.snack === snack.snack && item.id === snack.id,
     )
 
+    // atualizar
     if (snackExistsInCart) {
       const newCart = cart.map((item) => {
         if (item.id === snack.id) {
@@ -54,6 +55,7 @@ export function CartProvider({ children }: CartProviderProps) {
       return
     }
 
+    // criar
     const newSnack = {
       ...snack,
       quantity: 1,
