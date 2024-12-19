@@ -22,9 +22,9 @@ interface UpdateCartProps {
 interface CartContextProps {
   cart: Snack[]
   addSnackIntoCart: (snack: SnackData) => void
-  removeSnackFromCart: (id: number, snack: Snack) => void
-  snackCartIncrement: (id: number, snack: Snack) => void
-  snackCartDecrement: (id: number, snack: Snack) => void
+  removeSnackFromCart: (snack: Snack) => void
+  snackCartIncrement: (snack: Snack) => void
+  snackCartDecrement: (snack: Snack) => void
   confirmOrder: () => void
 }
 
@@ -71,18 +71,41 @@ export function CartProvider({ children }: CartProviderProps) {
     setCart(newCart)
   }
 
-  function updateSnackQuantity(id: number, snack: Snack, newQuantity: number): void {
-    //
+  function updateSnackQuantity(snack: Snack, newQuantity: number): void {
+    if (newQuantity <= 0) {
+      toast.error('Quantidade inválida!')
+      return
+    }
+
+    const snackExistsInCart = cart.find(
+      (item) => item.id === snack.id && item.snack === snack.snack,
+    )
+    if (!snackExistsInCart) return
+
+    const newCart = cart.map((item) => {
+      if (item.id === snackExistsInCart.id && item.snack === snackExistsInCart.snack) {
+        return {
+          ...item,
+          quantity: newQuantity,
+          subtotal: item.price * newQuantity,
+        }
+      }
+      return item
+    })
+
+    setCart(newCart)
   }
 
-  function removeSnackFromCart(id: number, snack: Snack): void {
-    //
+  function removeSnackFromCart(snack: Snack): void {
+    const newCart = cart.filter((item) => !(item.id === snack.id && item.snack === snack.snack))
+    toast.error(`${SnackEmoji(snack.snack)} ${snack.name} removido dos pedidos!`)
+    setCart(newCart)
   }
-  function snackCartIncrement(id: number, snack: Snack): void {
-    updateSnackQuantity(id, snack, snack.quantity + 1)
+  function snackCartIncrement(snack: Snack): void {
+    updateSnackQuantity(snack, snack.quantity + 1)
   }
-  function snackCartDecrement(id: number, snack: Snack): void {
-    updateSnackQuantity(id, snack, snack.quantity - 1)
+  function snackCartDecrement(snack: Snack): void {
+    updateSnackQuantity(snack, snack.quantity - 1)
   }
   function confirmOrder(): void {
     //
