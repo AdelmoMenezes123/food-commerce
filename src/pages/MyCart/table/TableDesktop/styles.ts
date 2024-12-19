@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.table`
+export const Container = styled.main`
   background: ${({ theme }) => theme.colors.black};
   padding: 2rem 2.5rem;
   border-radius: 8px;
@@ -12,6 +12,7 @@ export const Container = styled.table`
 
     th {
       padding: 0 1rem 0.5rem 1rem;
+
       font-weight: 500;
       font-size: 1.125rem;
       text-transform: uppercase;
@@ -34,7 +35,8 @@ export const Container = styled.table`
       }
 
       > span {
-        font-size: 0.875rem;
+        font-weight: 700;
+        font-size: 1.5rem;
       }
 
       div {
@@ -48,11 +50,10 @@ export const Container = styled.table`
           border: none;
 
           display: flex;
-          justify-content: center;
           align-items: center;
+          justify-content: center;
 
-          svg {
-            fill: ${({ theme }) => theme.colors.yellow};
+          img {
             width: 1.25rem;
           }
         }
@@ -66,7 +67,7 @@ export const Container = styled.table`
       &:first-child {
         width: 7.5rem;
         padding-left: 0;
-        padding-right: 0rem;
+        padding-right: 0;
 
         img {
           object-fit: cover;
@@ -75,12 +76,13 @@ export const Container = styled.table`
           border-radius: 8px;
         }
       }
+
       &:nth-child(2) {
         padding-left: 2rem;
       }
 
-      &:last-child(3),
-      &:last-child(4) {
+      &:nth-child(3),
+      &:nth-child(4) {
         width: 11rem;
       }
 
@@ -94,8 +96,8 @@ export const Container = styled.table`
           width: 100%;
 
           display: flex;
-          justify-content: flex-end;
           align-items: center;
+          justify-content: flex-end;
 
           svg {
             fill: ${({ theme }) => theme.colors.yellow};

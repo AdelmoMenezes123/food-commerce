@@ -1,7 +1,9 @@
 import { Head } from '../../components/Head'
 import { OrderHeader } from '../../components/OrderHeader'
-import { Container } from './styles'
+
 import { Table } from './table'
+
+import { Container } from './styles'
 
 export default function Main() {
   return (

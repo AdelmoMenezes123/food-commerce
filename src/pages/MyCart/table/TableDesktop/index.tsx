@@ -1,22 +1,25 @@
-import { currencyFormat } from '../../../../helpers/currencyFormat'
-import { useCart } from '../../../../hooks/useCart'
-import { Container } from './styles'
-
 import { FaTrashAlt } from 'react-icons/fa'
+import { useCart } from '../../../../hooks/useCart'
+
+import { ConfirmOrder } from '../../../../components/ConfirmOrder'
+
+import { currencyFormat } from '../../../../helpers/currencyFormat'
 
 import minusImg from '../../../../assets/circle-minus.svg'
 import plusImg from '../../../../assets/circle-plus.svg'
-import { ConfirmOrder } from '../../../../components/ConfirmOrder'
 
-export function TableDescktop() {
+import { Container } from './styles'
+
+export function TableDesktop() {
   const { cart, removeSnackFromCart, snackCartIncrement, snackCartDecrement } = useCart()
+
   return (
     <Container>
       <table>
         <thead>
           <tr>
             <th></th>
-            <th>Lanches</th>
+            <th>Lanche</th>
             <th>Qtd</th>
             <th>Subtotal</th>
             <th></th>
@@ -35,11 +38,11 @@ export function TableDescktop() {
               <td>
                 <div>
                   <button type='button' onClick={() => snackCartDecrement(item)}>
-                    <img src={minusImg} alt='remover quantidade' />
+                    <img src={minusImg} alt='Remover quantidade' />
                   </button>
                   <span>{`${item.quantity}`.padStart(2, '0')}</span>
                   <button type='button' onClick={() => snackCartIncrement(item)}>
-                    <img src={plusImg} alt='adicionar quantidade' />
+                    <img src={plusImg} alt='Adicionar quantidade' />
                   </button>
                 </div>
               </td>
