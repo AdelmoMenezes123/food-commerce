@@ -1,13 +1,12 @@
 import { FaTrashAlt } from 'react-icons/fa'
 import { useCart } from '../../../../hooks/useCart'
 
-import { ConfirmOrder } from '../../../../components/ConfirmOrder'
-
 import { currencyFormat } from '../../../../helpers/currencyFormat'
 
 import minusImg from '../../../../assets/circle-minus.svg'
 import plusImg from '../../../../assets/circle-plus.svg'
 
+import { ConfirmOrder } from '../../../../components/OrderCloseAction/ConfirmOrder'
 import { Container } from './style'
 
 export function TableMobile() {
