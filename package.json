@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@brazilian-utils/brazilian-utils": "^1.0.0-rc.12",
     "@hookform/resolvers": "^3.10.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -13,6 +14,7 @@
     "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.23",
     "axios": "^0.27.2",
+    "card-validator": "^10.0.2",
     "polished": "^4.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

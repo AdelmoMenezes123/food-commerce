@@ -1,37 +1,23 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
+import { FieldValues, schema } from './validationSchema'
 
 import { Head } from '../../components/Head'
 import { PayOrder } from '../../components/OrderCloseAction/PayOrder'
 import { OrderHeader } from '../../components/OrderHeader'
 
-import { IMaskInput } from 'react-imask'
+import { IMask, IMaskInput } from 'react-imask'
 import { Container, Form, Inner } from './styles'
-
-const schema = yup
-  .object({
-    fullName: yup
-      .string()
-      .required('nome e sobrenome são obrigatorio')
-      .min(3, 'nome e sobre nome são muito curtos'),
-    email: yup.string().email().required('email obrigatorio'),
-    mobile: yup.string().required('celular obrigatorio'),
-  })
-  .required()
-
-type FieldValues = yup.InferType<typeof schema>
 
 export default function Payment() {
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({
     resolver: yupResolver(schema),
   })
-  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log('DATA: ', data)
 
   return (
     <Container>
@@ -72,21 +58,30 @@ export default function Payment() {
                 name='mobile'
                 control={control}
                 render={({ field }) => (
-                  <IMaskInput
-                    mask='(00) 90000-0000'
-                    type='tel'
-                    id='mobile'
-                    autoComplete='phone'
-                    {...field}
-                  />
+                  <IMaskInput mask={'(00) 90000-0000'} type='tel' id='mobile' {...field} />
                 )}
               />
               {errors.mobile && <p className='error'>{errors.mobile.message}</p>}
             </div>
 
             <div className='field'>
-              <label htmlFor='documento'>CPF / CNPJ</label>
-              <input type='text' id='documento' name='documento' />
+              <label htmlFor='document'>CPF / CNPJ</label>
+              <Controller
+                name='document'
+                control={control}
+                render={({ field }) => (
+                  <IMaskInput
+                    mask={[
+                      { mask: '000.000.000-00', maxLength: 11 },
+                      { mask: '00.000.000/0000-00', maxLength: 14 },
+                    ]}
+                    type='text'
+                    id='document'
+                    {...field}
+                  />
+                )}
+              />
+              {errors.document && <p className='error'>{errors.document.message}</p>}
             </div>
           </div>
 
@@ -94,119 +89,206 @@ export default function Payment() {
 
           <div className='field'>
             <label htmlFor='zipcode'>CEP</label>
-            <input
-              type='text'
-              id='zipcode'
-              name='zipcode'
-              placeholder='postal-code'
-              style={{ width: '120px' }}
+            <Controller
+              name='zipCode'
+              control={control}
+              render={({ field }) => (
+                <IMaskInput
+                  mask={'00000-000'}
+                  type='text'
+                  id='zipCode'
+                  style={{ width: '120px' }}
+                  {...field}
+                />
+              )}
             />
+            {errors.zipCode && <p className='error'>{errors.zipCode.message}</p>}
           </div>
 
           <div className='field'>
             <label htmlFor='street'>Endereço</label>
-            <input type='text' id='street' name='street' />
+            <Controller
+              name='street'
+              control={control}
+              render={({ field }) => <input type='text' id='street' {...field} />}
+            />
+            {errors.street && <p className='error'>{errors.street.message}</p>}
           </div>
 
           <div className='grouped'>
             <div className='field'>
               <label htmlFor='number'>Número</label>
-              <input type='text' id='number' name='number' />
+              <Controller
+                name='number'
+                control={control}
+                render={({ field }) => (
+                  <input type='text' id='number' autoComplete='number' {...field} />
+                )}
+              />
+              {errors.number && <p className='error'>{errors.number.message}</p>}
             </div>
 
             <div className='field'>
               <label htmlFor='complement'>Complemento</label>
-              <input type='text' id='complement' name='complement' />
+              <Controller
+                name='complement'
+                control={control}
+                render={({ field }) => (
+                  <input type='text' id='complement' autoComplete='complement' {...field} />
+                )}
+              />
+              {errors.complement && <p className='error'>{errors.complement.message}</p>}
             </div>
           </div>
 
           <div className='grouped'>
             <div className='field'>
               <label htmlFor='neighborhood'>Bairro</label>
-              <input type='text' id='neighborhood' name='neighborhood' />
+              <Controller
+                name='neighborhood'
+                control={control}
+                render={({ field }) => (
+                  <input type='text' id='neighborhood' autoComplete='neighborhood' {...field} />
+                )}
+              />
+              {errors.neighborhood && <p className='error'>{errors.neighborhood.message}</p>}
             </div>
 
             <div className='field'>
               <label htmlFor='city'>Cidade</label>
-              <input type='text' id='city' name='city' />
+              <Controller
+                name='city'
+                control={control}
+                render={({ field }) => (
+                  <input type='text' id='city' autoComplete='city' {...field} />
+                )}
+              />
+              {errors.city && <p className='error'>{errors.city.message}</p>}
             </div>
 
             <div className='field'>
               <label htmlFor='state'>Estado</label>
-              <select id='state' name='state'>
-                <option value=''>Selecione um estado</option>
-                <option value='AC'>Acre</option>
-                <option value='AL'>Alagoas</option>
-                <option value='AP'>Amapá</option>
-                <option value='AM'>Amazonas</option>
-                <option value='BA'>Bahia</option>
-                <option value='CE'>Ceará</option>
-                <option value='DF'>Distrito Federal</option>
-                <option value='ES'>Espírito Santo</option>
-                <option value='GO'>Goiás</option>
-                <option value='MA'>Maranhão</option>
-                <option value='MT'>Mato Grosso</option>
-                <option value='MS'>Mato Grosso do Sul</option>
-                <option value='MG'>Minas Gerais</option>
-                <option value='PA'>Pará</option>
-                <option value='PB'>Paraíba</option>
-                <option value='PR'>Paraná</option>
-                <option value='PE'>Pernambuco</option>
-                <option value='PI'>Piauí</option>
-                <option value='RJ'>Rio de Janeiro</option>
-                <option value='RN'>Rio Grande do Norte</option>
-                <option value='RS'>Rio Grande do Sul</option>
-                <option value='RO'>Rondônia</option>
-                <option value='RR'>Roraima</option>
-                <option value='SC'>Santa Catarina</option>
-                <option value='SP'>São Paulo</option>
-                <option value='SE'>Sergipe</option>
-                <option value='TO'>Tocantins</option>
-              </select>
+              <Controller
+                name='state'
+                control={control}
+                render={({ field }) => (
+                  <select id='state' {...field}>
+                    <option value=''>Selecione um estado</option>
+                    <option value='AC'>Acre</option>
+                    <option value='AL'>Alagoas</option>
+                    <option value='AP'>Amapá</option>
+                    <option value='AM'>Amazonas</option>
+                    <option value='BA'>Bahia</option>
+                    <option value='CE'>Ceará</option>
+                    <option value='DF'>Distrito Federal</option>
+                    <option value='ES'>Espírito Santo</option>
+                    <option value='GO'>Goiás</option>
+                    <option value='MA'>Maranhão</option>
+                    <option value='MT'>Mato Grosso</option>
+                    <option value='MS'>Mato Grosso do Sul</option>
+                    <option value='MG'>Minas Gerais</option>
+                    <option value='PA'>Pará</option>
+                    <option value='PB'>Paraíba</option>
+                    <option value='PR'>Paraná</option>
+                    <option value='PE'>Pernambuco</option>
+                    <option value='PI'>Piauí</option>
+                    <option value='RJ'>Rio de Janeiro</option>
+                    <option value='RN'>Rio Grande do Norte</option>
+                    <option value='RS'>Rio Grande do Sul</option>
+                    <option value='RO'>Rondônia</option>
+                    <option value='RR'>Roraima</option>
+                    <option value='SC'>Santa Catarina</option>
+                    <option value='SP'>São Paulo</option>
+                    <option value='SE'>Sergipe</option>
+                    <option value='TO'>Tocantins</option>
+                  </select>
+                )}
+              />
+              {errors.state && <p className='error'>{errors.state.message}</p>}
             </div>
           </div>
 
           <h4>Pagamento</h4>
 
           <div className='field'>
-            <label htmlFor='credit-card-number'>Número do cartão</label>
-            <input
-              type='text'
-              id='credit-card-number'
-              name='credit-card-number'
-              autoComplete='cc-number'
+            <label htmlFor='creditCardNumber'>Número do cartão</label>
+            <Controller
+              name='creditCardNumber'
+              control={control}
+              render={({ field }) => (
+                <IMaskInput
+                  mask={[
+                    { mask: '0000 000000 0000', maxLength: 14 },
+                    { mask: '0000 000000 00000', maxLength: 15 },
+                    { mask: '0000 00000 0000 0000' },
+                  ]}
+                  type='text'
+                  id='creditCardNumber'
+                  {...field}
+                />
+              )}
             />
+            {errors.creditCardNumber && <p className='error'>{errors.creditCardNumber.message}</p>}
           </div>
 
           <div className='field'>
-            <label htmlFor='credit-card-name'>Nome impresso no cartão</label>
-            <input
-              type='text'
-              id='credit-card-name'
-              name='credit-card-name'
-              autoComplete='cc-name'
+            <label htmlFor='creditCardHolder'>Nome impresso no cartão</label>
+            <Controller
+              name='creditCardHolder'
+              control={control}
+              render={({ field }) => <input type='text' id='creditCardHolder' {...field} />}
             />
+            {errors.creditCardHolder && <p className='error'>{errors.creditCardHolder.message}</p>}
           </div>
 
           <div className='grouped'>
             <div className='field'>
-              <label htmlFor='credit-card-expiration-date'>Validade (MM/AA)</label>
-              <input
-                type='text'
-                id='credit-card-expiration'
-                name='credit-card-expiration'
-                autoComplete='cc-exp'
+              <label htmlFor='creditCardExpiration'>Validade (MM/AA)</label>
+              <Controller
+                name='creditCardExpiration'
+                control={control}
+                render={({ field }) => (
+                  <IMaskInput
+                    type='text'
+                    id='creditCardExpiration'
+                    mask={[
+                      {
+                        mask: 'MM/YY',
+                        blocks: {
+                          MM: {
+                            mask: IMask.MaskedRange,
+                            from: 1,
+                            to: 12,
+                          },
+                          YY: {
+                            mask: IMask.MaskedRange,
+                            from: new Date().getFullYear() - 2000,
+                            to: 99,
+                          },
+                        },
+                      },
+                    ]}
+                    {...field}
+                  />
+                )}
               />
+              {errors.creditCardExpiration && (
+                <p className='error'>{errors.creditCardExpiration.message}</p>
+              )}
             </div>
 
             <div className='field'>
-              <label htmlFor='credit-card-cvv'>CVV</label>
-              <input
-                type='text'
-                id='credit-card-code'
-                name='credit-card-code'
-                autoComplete='cc-csc'
+              <label htmlFor='creditCardSecurityCode'>CVV</label>
+              <Controller
+                name='creditCardSecurityCode'
+                control={control}
+                render={({ field }) => (
+                  <IMaskInput type='text' id='creditCardSecurityCode' mask={'0000'} {...field} />
+                )}
               />
+              {errors.creditCardSecurityCode && (
+                <p className='error'>{errors.creditCardSecurityCode.message}</p>
+              )}
             </div>
           </div>
           <PayOrder />
