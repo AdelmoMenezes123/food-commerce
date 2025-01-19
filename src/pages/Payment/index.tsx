@@ -7,9 +7,13 @@ import { PayOrder } from '../../components/OrderCloseAction/PayOrder'
 import { OrderHeader } from '../../components/OrderHeader'
 
 import { IMask, IMaskInput } from 'react-imask'
+import { useCart } from '../../hooks/useCart'
+import { CustomerData } from '../../interfaces/CustomerData'
 import { Container, Form, Inner } from './styles'
 
 export default function Payment() {
+  const { payOrder } = useCart()
+
   const {
     control,
     handleSubmit,
@@ -17,7 +21,7 @@ export default function Payment() {
   } = useForm<FieldValues>({
     resolver: yupResolver(schema),
   })
-  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log('DATA: ', data)
+  const onSubmit: SubmitHandler<FieldValues> = (data) => payOrder(data as CustomerData)
 
   return (
     <Container>
